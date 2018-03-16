@@ -1,0 +1,10 @@
+
+/* 
+    ng-touched class will be added to input after clickeng to input
+    ng-invalid is added if this input is invalid
+
+    so this selector selects inut that istouched and is invalid
+*/
+input.ng-touched.ng-invalid{
+    border: 1px solid red;
+}

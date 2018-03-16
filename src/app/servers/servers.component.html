@@ -1,0 +1,114 @@
+<!-- this is directive that allowes us to change route
+    We use routerLink bchouse href will work, but will reload a page
+    routerLink dont reloads a page and works the way agnular should work
+    If we will use relative path(withot slash) then path will be added on already axisting path
+-->
+<!-- This route will go one level back(works like in folder structures) -->
+<a routerLink="../servers"></a><br>
+<a routerLink="/servers/10/qetino">go to servers</a><br>
+
+<!-- 
+    queryParams-is a list of parameters in url
+    fragment //is a part of webpage to scroll to
+-->
+<a routerLink="/servers/10/qetino"
+[queryParams]="{alloweEdit:'1',ripParam:2}" fragment="ripLoading">go to servers
+</a><br>
+<!-- routerLinkActive is a decorator that alowes us to add a class(that is parametere 
+    in our situation "active" is a class) to element if corresponding link is active(is included in a link
+    ,it means that if link is larger but includes corresponding route,it will be thought to be active)  -->
+<a routerLink="/servers" routerLinkActive="active"></a>
+
+<!-- routerLinkActiveOptions allows to say to routerLinkActive property that "active" class
+should be added only when exact route is active and not when route is part of whole url -->
+<a routerLink="/servers" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}"></a>
+
+<!-- this  is a method that helps to buld a route
+    this will be gererated to this route "servers/2"
+    [routerLink]="['/servers','2','qeti'] will ge generated to "servers/2/qeti"
+-->
+<a [routerLink]="['/servers','2']"></a>
+
+<!-- add input listener(while typping wee are calling onUpdateServerName method) -->
+single-way-data-binding
+<input type="text" (input)="onUpdateServerName($event)" />
+<br>
+
+<!--ngModel writes and reads (two way binding)to name which is defined in app.components.ts-->
+two-way-databinding
+<input type="text" [(ngModel)]="serverName" />
+<br>
+
+<!-- In background simple ngIf directive transform in this kind of block code.
+Its then result of *(star)that saies that ngIf is structural directive -->
+<!-- <ng-content [ngIf]="serverNameAdded">
+    <h1 [innerText]="serverName"></h1>
+</ng-content> -->
+
+<!--This is example of my custom diective(taht is transformed lie in example below).star will disapear,
+    ng-template will be created and inspite of starr will be used property binding 
+    *undless=>[unless]
+-->
+<h1 *unless="true">Testing my structural directive</h1>
+
+<!-- rodesac vicit rom informacia sheicvleba gamoviyenot property binding.
+    "innerText" nishnavs rac tagis shigtavsi iqneba-->
+<h1 *ngIf="serverNameAdded;else noServer" [innerText]="serverName"></h1>
+
+<!-- Using property binding we can asign property of directive too.How does 
+    angular know it is elements property or directives?It first checks 
+    directives properties and then native properties of the element  -->
+<h1 appDirectiveWithRenderer [defaultColor]="'red'"> {{ serverName }} </h1>
+<!-- string interpolation gamoviyenot mxolod mashin rodesac gvinda ragac gamovitanot -->
+
+
+<!-- [disabled]='isDisabled' here disabled property depends on isDesabled property,
+it means disabled attribute gets value of isDisabled property
+-->
+<button (click)='onServerAdd()' [disabled]='isDisabled'>Button</button>
+
+<!-- *ngFor cicle gets server from servers list.(let is type)."index"here is index of iteration.we can not to add second statement -->
+<div *ngFor="let server of servers;let i=index">
+    <h1>{{server}} {{" "}} {{i}}</h1>
+</div>
+
+<!-- Template.To insert it in code we should call it.(In our sitation we insert it as an else variant of *ngIf) -->
+<ng-template #noServer>
+    <!-- add Css dynamically -->
+    <h1 [ngStyle]="{backgroundColor:getColor()}">No Server Created</h1>
+    <!-- add class dynamically firts argument is which class we want to add,second boolean which defines add or not this class -->
+    <h1 [ngClass]="{login:true}">No Server Created</h1>
+</ng-template>
+
+<!-- Switch Case Directive -->
+<div [ngSwitch]="5">
+    <p *ngSwitchCase="1">1</p>
+    <!-- This p will be displaied -->
+    <p *ngSwitchCase="5">5</p>
+    <p *ngSwitchCase="2">2</p>
+</div>
+
+<!-- this is place where code that is in this components'tag(<app-server>)should be inserted-->
+<ng-content></ng-content>
+
+<!-- To pass data to parrent -->
+<button (click)="onRipEvent()">call Event</button>
+
+<!-- Output data recived from parrent In each iteration of parrent elemt will have different values-->
+<ul class="list-group">
+    <a>
+        {{element.type}}
+        <br> {{element.name}}
+        <br>
+    </a>
+</ul>
+<!-- Local Reference Refers to whole input element we can get value using ripLocalRef.value 
+    (in typescript code and in this html file too)we cal aslo pass it to function this way 
+    ripFunc(ripLocalRef)-->
+<input type="text" #ripLocalRef>
+<input type="text" #ripTestFetch>
+<button (click)="onRipLocalRefClick(ripLocalRef)">test local ref</button>
+
+<!-- Show child router component  -->
+<br><a routerLink="/servers/server/data">Show child router component</a>
+<router-outlet></router-outlet>

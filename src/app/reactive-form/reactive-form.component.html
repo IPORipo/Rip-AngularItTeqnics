@@ -1,0 +1,54 @@
+<div class="row">
+  <div class="col-xs-12">
+    <!--  Initialising FormGroup-->
+    <form [formGroup]="recipeForm" (ngSubmit)="onSubmit()">
+
+      <!-- Here by [disabled]="!recipeForm.valid" we are checking if form is valid -->
+      <button type="submit" class="btn btn-success" [disabled]="!recipeForm.valid">Save
+      </button>
+
+      <button type="button" class="btn btn-danger" (click)="onCancel()">Cancel</button>
+
+      <div class="form-group">
+        <label for="name">Name</label>
+        <!-- formControlName is property by which we are 
+          connecting FormGroup values with input values -->
+        <input type="text" id="name" formControlName="name" class="form-control">
+      </div>
+
+      <div class="form-group">
+        <label for="imagePath">Image URL</label>
+        <input type="text" id="imagePath" formControlName="imagePath" class="form-control" #imagePath>
+      </div>
+
+      <!-- inserting value to src attribute-->
+      <img [src]="imagePath.value" class="img-responsive">
+
+      <div class="form-group">
+        <label for="description">Description</label>
+        <textarea type="text" id="description" class="form-control" formControlName="description"></textarea>
+      </div>
+      <!-- 
+        Here we are printing formgroups dynamically 
+        By formArrayName="ingredients" we are saying that here we are going to 
+        work with formGroup.So writting it is important
+      -->
+      <div formArrayName="ingredients">
+        <!-- [formGroupName]="i" is important to show to angular that its formGroup and has unique name -->
+        <div *ngFor="let ctrl of recipeForm.get('ingredients').value; let i = index" [formGroupName]="i">
+          <!--
+            formControlName="name" works bcouse above this statement we are saying that 
+            its part of formGroup
+          -->
+          <input type="text" class="form-control" formControlName="name">
+          <input type="number" class="form-control" formControlName="amount">
+          <button type="button" class="btn btn-danger" (click)="onDeleteIngredient(i)">X</button>
+        </div>
+      </div>
+      <hr>
+      <div class="row">
+        <button type="button" class="btn btn-success" (click)="onAddIngredient()">Add Ingredient</button>
+      </div>
+    </form>
+  </div>
+</div>
