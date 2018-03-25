@@ -11,6 +11,7 @@ import { PageNotFoundComponent } from "./page-not-found/page-not-found.component
 import { RoutGuardService } from "./TestServers/rout-guard.service";
 import { NewFormsComponent } from "./new-forms/new-forms.component";
 import { ReactiveFormComponent } from "./reactive-form/reactive-form.component";
+import { TestRipServiceComponent } from './test-rip-service/test-rip-service.component';
 
 // This is array of type Routes that should be passed as an argument
 // in RouterModule.forRoot(-) function
@@ -23,6 +24,7 @@ const ripRoutes:Routes=[
     {path:'simple-form',component:NewFormsComponent},
     {path:'reactive-form',component:ReactiveFormComponent},
     
+    {path:'test-service',component:TestRipServiceComponent},
     {path:'pipe',component:PipeComponent},
     // We can add children route,so after in parrent component if we will write 
     //<router-outlet></router-outlet> and fill parentsroute+childroute in parents route 

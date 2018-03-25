@@ -24,6 +24,9 @@ import { ReactiveFormComponent } from './reactive-form/reactive-form.component';
 import { FilterPipe } from './filter.pipe';
 import { PipeComponent } from './pipe/pipe.component';
 import { ShortenPipe } from './shorten.pipe';
+import { RipServiceService } from './rip-service.service';
+import { HttpModule } from '@angular/http';
+import { TestRipServiceComponent } from './test-rip-service/test-rip-service.component';
 
 // I have placed routes in seperate routing.module.ts file
 // const ripRoutes:Routes=[
@@ -31,8 +34,12 @@ import { ShortenPipe } from './shorten.pipe';
 // ]
 
 //from here we are adding different feauters to app
-// Components and directives
+
 @NgModule({
+  // declaring  Components directives and pipes
+  // we must declate one thing only once
+  // we dont have ability to declare in several modules,
+  // but we have ebility to provide and make imports several times
   declarations: [
     AppComponent,
     ServersComponent,
@@ -46,10 +53,15 @@ import { ShortenPipe } from './shorten.pipe';
     ReactiveFormComponent,
     FilterPipe,
     PipeComponent,
-    ShortenPipe
+    ShortenPipe,
+    TestRipServiceComponent,
   ],
-  // here we are adding modules
+  // here we are adding other modules,yhat this module uses
   imports: [
+    // this module should be importid to use ngIf... 
+    // But in creatd modules to use this kind of directives 
+    // we can use CommonModule bcouse,BrowserModule consists of this module,
+    // and another things that arenot important for custom modules
     BrowserModule,
     // is added to have ability to us formGroups(Reactive form)
     ReactiveFormsModule,
@@ -60,7 +72,10 @@ import { ShortenPipe } from './shorten.pipe';
     // RouterModule.forRoot(ripRoutes) in seperate file.So now i have only imoirt 
     // AppRoutingModule that imports my routs
     // RouterModule.forRoot(ripRoutes) 
-    AppRoutingModule
+    AppRoutingModule,
+
+    // Its to us http requests
+    HttpModule
   ],
   // here we are adding services
   providers: [
@@ -72,13 +87,15 @@ import { ShortenPipe } from './shorten.pipe';
     // then will be created as much service instances as we will declare(in providers)
     LogService,
     LogService2,
-    RoutGuardService
+    RoutGuardService,
+    RipServiceService
     ,
     // {
     //   provide: LocationStrategy,
     //   useClass: HashLocationStrategy
     //   },
   ],
+  // Defines our root component
   bootstrap: [AppComponent]
 })
 export class AppModule { }
