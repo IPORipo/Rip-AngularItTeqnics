@@ -24,7 +24,7 @@ import { Subject } from 'rxjs/Subject';
   //adds atributes to itrs views
   //Emulated is as default(adds atribtes automaticaly so css is used only to this component)
   //None(dont adds attributes to its view elements so css works globaly for all components)
-  //Mative adds shadow root,works like emulated but only in browsers that support shadow ...(ver gavige kargad)
+  //Native adds shadow root,works like emulated but only in browsers that support shadow ...(ver gavige kargad)
   encapsulation: ViewEncapsulation.Emulated
 })
 export class ServersComponent implements OnInit {

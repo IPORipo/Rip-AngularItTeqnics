@@ -44,7 +44,7 @@ const ripRoutes:Routes=[
     // This form allows us to pass paramtere in path(after slash).Important is that 
     // We are forced to pass para meter
     // canActivate parameter holds service that should implement(CanActivate interface).
-    // This service will run before activating this route.it can return several types.Also 
+    // This service will run before activating this route.it can return several types.Also
     {path:'servers/:id/:name',
     canActivate :[RoutGuardService],
     //its to add guard to only its childs.We can add "canActivate :[RoutGuardService]"
