@@ -9,10 +9,9 @@ import { Observable } from "rxjs/Observable";
 })
 export class FirestoreComponent implements OnInit {
   constructor(private db: AngularFirestore) {}
-  public items: any;
+  public items: Observable<any[]>;
   ngOnInit() {
     // This example will work in real time.if database is updated we will get updated data
-    this.items = this.db.collection("/items");
-    ``;
+    this.items = this.db.collection("/items").valueChanges();
   }
 }
