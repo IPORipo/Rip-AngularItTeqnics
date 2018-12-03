@@ -84,6 +84,8 @@ import { AngularFireModule } from "angularfire2";
 
     // For Firebase
     AngularFireModule.initializeApp(environment.firebase),
+    // if we want to enable offline mode (we will be able to update,set,add data and info will be syncronized with server when connection established)
+    // AngularFirestoreModule.enablePersistence()
     AngularFirestoreModule
   ],
   // here we are adding services
